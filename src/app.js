@@ -3,7 +3,10 @@ import express from "express";
 import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
-import sessionConfig from "./config/session.js";
+
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const MySQLStore = require("express-mysql-session")(session);
 
 import router from "./routes/index.routes.js";
 
@@ -19,7 +22,26 @@ app.set("view engine", "ejs");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(session(sessionConfig));
+
+app.use(session({
+    secret: process.env.ES_KEY,
+	resave: false,
+	saveUninitialized: false,
+	cookie: {
+		secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+		sameSite: "strict",
+		maxAge: 1200000, // 20 minutes
+	},
+    store: new MySQLStore({
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+    })
+}))
+	
 
 app.use((req, res, next) => {
     console.log("use",req.session)
