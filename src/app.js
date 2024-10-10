@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(session(sessionConfig));
 
 app.use((req, res, next) => {
+    console.log("use",req.session)
     res.locals.user = req.session.user || null;
     res.locals.otpVerified = req.session.otpVerified || false;
 

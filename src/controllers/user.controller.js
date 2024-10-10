@@ -21,8 +21,10 @@ const register = async (req, res) => {
 const login = async (req, res) => {
 	try {
 		const {username, hasOTP} = await UserService.login(req.body);
+        console.log(username, hasOTP)
 		req.session.user = {username, otp: hasOTP};
         req.session.otpVerified = false;
+        console.log("login", req.session)
 		res.redirect("/generate-otp");
 	} catch (error) {
 		res.status(400).send(error.message);
@@ -32,7 +34,7 @@ const login = async (req, res) => {
 const generateOTP = (req, res) => {
     const secret = authenticator.generateSecret();
     req.session.otpSecret = secret;
-
+    console.log("generateOTP",req.session)
     const otpauth = authenticator.keyuri(req.session.user.username, 'Super Blog', secret);
 
     qrcode.toDataURL(otpauth, (err, imageUrl) => {

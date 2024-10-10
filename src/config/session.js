@@ -3,7 +3,7 @@ export default {
 	resave: false,
 	saveUninitialized: false,
 	cookie: {
-		secure: true,
+		secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
 		sameSite: "strict",
 		maxAge: 1200000, // 20 minutes
