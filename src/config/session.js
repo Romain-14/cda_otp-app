@@ -1,3 +1,5 @@
+import MySQLStore from 'express-mysql-session';
+
 export default {
 	secret: process.env.ES_KEY,
 	resave: false,
