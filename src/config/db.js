@@ -1,4 +1,3 @@
-import e from "express";
 import mysql2 from "mysql2/promise";
 
 const pool = mysql2.createPool({
@@ -8,7 +7,7 @@ const pool = mysql2.createPool({
 	database: process.env.DB_NAME,
 	waitForConnections: true,
 	connectionLimit: 10,
-	queueLimit: 0,
+	queueLimit: 0
 });
 
 export default pool;
