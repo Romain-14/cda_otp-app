@@ -1,0 +1,12 @@
+<main>
+	<h1>Welcome to my super blog !!</h1>
+    <% if (!user) { %>
+        <p>You can register or login to access the content of my blog.</p>
+	<p>
+		<a href="/login">Here is the authentication page.</a>
+	</p>
+    <% } else { %>
+        <p>Bienvenue, utilisateur <%= user.id %>! <form action="/logout" method="POST"><button type="submit">Logout</button></form></p>
+    <% } %>
+	
+</main>

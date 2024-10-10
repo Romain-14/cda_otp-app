@@ -1,0 +1,13 @@
+<header>
+	<h1>SUPA BLOG</h1>
+	<nav class="navbar">
+		<a href="/">Home</a>
+
+		<% if (!user) { %>
+		    <a href="/login">Login</a>
+        <% } else { %>
+		    <a href="/dashboard">Dashboard</a>
+		    <a href="/logout">Logout</a>
+        <% } %>
+	</nav>
+</header>
