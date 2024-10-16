@@ -31,7 +31,7 @@ app.use(session({
 		secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
 		sameSite: "strict",
-		maxAge: 1200000, // 20 minutes
+		maxAge: 1200000, 
 	},
     store: new MySQLStore({
         host: process.env.DB_HOST,

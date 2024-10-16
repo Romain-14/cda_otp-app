@@ -18,7 +18,7 @@ router.post('/verify-otp', verifyOTP);
 router.post("/register", register);
 router.post("/login", login);
 
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
     req.session.destroy();
     res.clearCookie("connect.sid");
     res.redirect("/");

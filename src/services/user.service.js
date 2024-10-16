@@ -8,27 +8,25 @@ class UserService {
 		const isUserExist = await User.findByUsername(username);
 		
 		if (!isUserExist) {
-            const hash = await bcrypt.hash(password, 10);
+            const hash    = await bcrypt.hash(password, 10);
 			const newUser = await User.add(username, hash);
-            console.log(newUser);
+
 			return newUser;
-		} else {
-			throw new Error("User already exists");
-		}
+
+		} else throw new Error("User already exists");
+		
 	}
 
     static async login(user) {
         const { username, password } = user;
         const userFound = await User.findByUsername(username);
-        if (!userFound) {
-            throw new Error("User not found");
-        }
+
+        if (!userFound) throw new Error("User not found");
+
         const isPasswordCorrect = await bcrypt.compare(password, userFound.password);
-        if (isPasswordCorrect) {
-            return userFound;
-        } else {
-            throw new Error("Incorrect password");
-        }
+
+        if (isPasswordCorrect) return userFound;
+        else throw new Error("Incorrect password");
     }
 
     static async dashboard(user) {

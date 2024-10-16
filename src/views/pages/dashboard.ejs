@@ -1,16 +1,19 @@
 <main>
     <h1>Dashboard</h1>
-    <% if (!otpVerified) { %>
-        <p>Please verify your OTP to access the dashboard.</p>
-        <a href="/generate-otp">Generate OTP</a>
-        <form action="/verify-otp" method="POST">
-            <label for="token">Enter OTP:</label>
-            <input type="text" id="token" name="token" required>
-            <button type="submit">Verify</button>
-        </form>
-        <% } else { %>
-            <p>Welcome, <%= user.username %></p>
-        <p>Your OTP is verified. You can access the dashboard.</p>
-        <a href="/logout">Logout</a>
+    <p>Welcome, <%= user.username %></p>
+    <% if (!user.hasOTP) { %>
+        <p>to enable OTP click the button below</p>
+            <a href="/generate-otp">Generate OTP</a>
+    <% } else { %>
+        <h1>Scan the QR Code</h1>
+    <img src="<%= imageUrl %>" alt="QR Code">
+    <p>Scan this QR code with your authenticator app.</p>
+    <form action="/verify-otp" method="POST">
+        <label for="token">Enter OTP:</label>
+        <input type="text" id="token" name="token" required>
+        <button type="submit">Verify</button>
+    </form>
+        <a href="/otp">Disable OTP</a>        
     <% } %>
+    <a href="/logout">Logout</a>
 </main>

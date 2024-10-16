@@ -14,10 +14,8 @@ const register_view = (req, res) => {
 
 const dashboard_view = async (req, res) => {
     try {
-        console.log(req.session)
 		const user = await UserService.dashboard(req.session.user);
-        console.log("controller",user)
-        res.render("template", { template: "pages/dashboard" });
+        res.render("template", { template: "pages/dashboard", imageUrl: null });
 	} catch (error) {
 		res.status(400).send(error.message);
 	}
